@@ -17,7 +17,7 @@ Your audio will be trascribed on-device and uploaded directly to Notion.
 - Create a [Notion integration](https://www.notion.so/my-integrations)
 - Create a page in Notion
 - Grant the integration access to the page ([docs](https://developers.notion.com/docs/authorization#integration-permissions))
-- Update the `.env` with your page ID and integration key
+- Update the `.env` with your [page ID](https://github.com/ramnes/notion-sdk-py/discussions/31) and integration key
 
 ```
 pip install -r requirements.txt
