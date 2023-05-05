@@ -15,12 +15,11 @@ Your audio will be trascribed on-device and uploaded directly to Notion.
 ### Getting started
 
 - Create a [Notion integration](https://www.notion.so/my-integrations)
-- Create a page in Notion that you wish to use as a journal.
-- Grant the integration access to the journal page by visiting the page in your Notion workspace, clicking the ••• menu at the top right of a page, **scrolling down** to Add connections
-- Find the page ID by clicking Share > and noting the last 32 character string
+- Create a page in Notion
+- Grant the integration access to the page ([docs](https://developers.notion.com/docs/authorization#integration-permissions))
 - Update the `.env` with your page ID and integration key
 
 ```
 pip install -r requirements.txt
-sudo python main.py
+sudo ./run.sh
 ```
