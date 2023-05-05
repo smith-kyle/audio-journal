@@ -1,0 +1,4 @@
+.venv
+.env
+temp_recordings
+completed_recordings
