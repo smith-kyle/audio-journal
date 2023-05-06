@@ -122,16 +122,19 @@ def recording_process():
 
 def transcribing_process():
     while True:
-        time.sleep(5)
-        for file in os.listdir("completed_recordings"):
-            if file.endswith(".wav"):
-                audio_file_path = os.path.join("completed_recordings", file)
-                transcription = transcribe_audio(audio_file_path)
-                print("Transcription:", transcription)
-                append_to_notion(transcription)
-                play_success_sound()
-                os.remove(audio_file_path)
-                print(f"Transcription uploaded to Notion and {audio_file_path} deleted.")
+        try:
+            time.sleep(5)
+            for file in os.listdir("completed_recordings"):
+                if file.endswith(".wav"):
+                    audio_file_path = os.path.join("completed_recordings", file)
+                    transcription = transcribe_audio(audio_file_path)
+                    print("Transcription:", transcription)
+                    append_to_notion(transcription)
+                    play_success_sound()
+                    os.remove(audio_file_path)
+                    print(f"Transcription uploaded to Notion and {audio_file_path} deleted.")
+        except Exception as e:
+            print(f"Error while transcribing and uploading audio. Trying again in 5 seconds...")
 
 if __name__ == "__main__":
     try:

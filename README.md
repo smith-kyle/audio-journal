@@ -12,6 +12,8 @@ For now, this is a CLI app, so there is _some_ computer touching involved.
 
 Your audio will be trascribed on-device and uploaded directly to Notion.
 
+https://user-images.githubusercontent.com/5474861/236587909-a7b0578b-b742-4571-80a2-65e249c43fca.mp4
+
 ### Getting started
 
 - Create a [Notion integration](https://www.notion.so/my-integrations)
