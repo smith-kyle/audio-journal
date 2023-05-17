@@ -13,6 +13,7 @@ from pydub.playback import play
 import time
 import multiprocessing
 import shutil
+import re
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -20,9 +21,6 @@ load_dotenv()
 # Set up Notion client
 notion = Client(auth=os.environ["NOTION_API_KEY"])
 notion_page_id = os.environ["NOTION_PAGE_ID"]
-
-# Load the Whisper model
-model = whisper.load_model("base")
 
 success_song = AudioSegment.from_wav("beeps/success.wav")
 error_song = AudioSegment.from_wav("beeps/error.wav")
@@ -65,11 +63,17 @@ def record_audio(filename):
 
 # Function to transcribe audio
 def transcribe_audio(filename):
+    # Load the Whisper model
+    model = whisper.load_model("small.en")
     result = model.transcribe(filename)
     return result["text"]
 
 # Function to append transcription to Notion document
 def append_to_notion(text):
+     # Split the text into chunks of 2000 characters or less, ensuring no sentence is split
+    max_chunk_size = 2000
+    text_chunks = [text[i:i + max_chunk_size] for i in range(0, len(text), max_chunk_size)]
+    print([len(c) for c in text_chunks])
     # Define the block object for appending
     current_date = datetime.date.today().strftime('%B %d, %Y')
     children = [
@@ -86,17 +90,18 @@ def append_to_notion(text):
                         "annotations": {
                             "bold": True
                         }
-                    },
-                    {
-                        "type": "text",
-                        "text": {
-                            "content": text
-                        }
                     }
                 ]
             } 
         } 
     ]
+    for chunk in text_chunks:
+        children[0]['paragraph']['rich_text'].append({
+                        "type": "text",
+                        "text": {
+                            "content": chunk
+                        }
+        })
 
     # Append the block to the page
     notion.blocks.children.append(
@@ -124,9 +129,11 @@ def transcribing_process():
     while True:
         try:
             time.sleep(5)
+            print("Checking for completed recordings...")
             for file in os.listdir("completed_recordings"):
                 if file.endswith(".wav"):
                     audio_file_path = os.path.join("completed_recordings", file)
+                    print(f"Transcribing {audio_file_path}")
                     transcription = transcribe_audio(audio_file_path)
                     print("Transcription:", transcription)
                     append_to_notion(transcription)
@@ -134,6 +141,7 @@ def transcribing_process():
                     os.remove(audio_file_path)
                     print(f"Transcription uploaded to Notion and {audio_file_path} deleted.")
         except Exception as e:
+            print(e)
             print(f"Error while transcribing and uploading audio. Trying again in 5 seconds...")
 
 if __name__ == "__main__":
