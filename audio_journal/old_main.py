@@ -2,7 +2,6 @@ import os
 import keyboard
 import sys
 import datetime
-import sounddevice as sd
 import whisper
 from notion_client import Client
 import queue
@@ -14,18 +13,17 @@ import time
 import multiprocessing
 import shutil
 import re
+from os.path import join
+
+DIR = os.path.dirname(os.path.realpath(__file__))
 
 from dotenv import load_dotenv
 load_dotenv()
 
-# Set up Notion client
-notion = Client(auth=os.environ["NOTION_API_KEY"])
-notion_page_id = os.environ["NOTION_PAGE_ID"]
-
-success_song = AudioSegment.from_wav("beeps/success.wav")
-error_song = AudioSegment.from_wav("beeps/error.wav")
-start_song = AudioSegment.from_wav("beeps/start.wav")
-stop_song = AudioSegment.from_wav("beeps/stop.wav")
+success_song = AudioSegment.from_wav(join(DIR, "beeps/success.wav"))
+error_song = AudioSegment.from_wav(join(DIR, "beeps/error.wav"))
+start_song = AudioSegment.from_wav(join(DIR, "beeps/start.wav"))
+stop_song = AudioSegment.from_wav(join(DIR, "beeps/stop.wav"))
 
 def play_success_sound():
     play(success_song)
@@ -41,6 +39,7 @@ def play_stop_sound():
 
 # Function to record audio
 def record_audio(filename):
+    import sounddevice as sd
     sample_rate = 44100
     channels = 1
     q = queue.Queue()
@@ -70,6 +69,9 @@ def transcribe_audio(filename):
 
 # Function to append transcription to Notion document
 def append_to_notion(text):
+    # Set up Notion client
+    notion = Client(auth=os.environ["NOTION_API_KEY"])
+    notion_page_id = os.environ["NOTION_PAGE_ID"]
      # Split the text into chunks of 2000 characters or less, ensuring no sentence is split
     max_chunk_size = 2000
     text_chunks = [text[i:i + max_chunk_size] for i in range(0, len(text), max_chunk_size)]
@@ -144,17 +146,3 @@ def transcribing_process():
             print(e)
             print(f"Error while transcribing and uploading audio. Trying again in 5 seconds...")
 
-if __name__ == "__main__":
-    try:
-        record_process = multiprocessing.Process(target=recording_process)
-        transcribe_process = multiprocessing.Process(target=transcribing_process)
-
-        record_process.start()
-        transcribe_process.start()
-
-        record_process.join()
-        transcribe_process.join()
-    # Catch any kind of error and play error sound
-    except Exception as e:
-        play_error_sound()
-        print(e)

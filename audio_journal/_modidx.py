@@ -5,6 +5,4 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://smith-kyle.github.io',
                 'git_url': 'https://github.com/smith-kyle/audio-journal',
                 'lib_path': 'audio_journal'},
-  'syms': { 'audio_journal.core': {'audio_journal.core.foo': ('core.html#foo', 'audio_journal/core.py')},
-            'audio_journal.main': {'audio_journal.main.say_something': ('temp.html#say_something', 'audio_journal/main.py')},
-            'audio_journal.temp': {'audio_journal.temp.say_something': ('temp.html#say_something', 'audio_journal/temp.py')}}}
+  'syms': {'audio_journal.main': {'audio_journal.main.start': ('main.html#start', 'audio_journal/main.py')}, 'audio_journal.old_main': {}}}
