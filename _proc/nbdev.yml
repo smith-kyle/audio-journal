@@ -1,9 +1,0 @@
-project:
-  output-dir: _docs
-
-website:
-  title: "audio-journal"
-  site-url: "https://smith-kyle.github.io/audio-journal"
-  description: "CLI tool to transcribe audio and store it in Notion"
-  repo-branch: main
-  repo-url: "https://github.com/smith-kyle/audio-journal"
