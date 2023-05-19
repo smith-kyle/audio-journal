@@ -20,10 +20,6 @@ DIR = os.path.dirname(os.path.realpath(__file__))
 from dotenv import load_dotenv
 load_dotenv()
 
-# Set up Notion client
-notion = Client(auth=os.environ["NOTION_API_KEY"])
-notion_page_id = os.environ["NOTION_PAGE_ID"]
-
 success_song = AudioSegment.from_wav(join(DIR, "beeps/success.wav"))
 error_song = AudioSegment.from_wav(join(DIR, "beeps/error.wav"))
 start_song = AudioSegment.from_wav(join(DIR, "beeps/start.wav"))
@@ -73,6 +69,9 @@ def transcribe_audio(filename):
 
 # Function to append transcription to Notion document
 def append_to_notion(text):
+    # Set up Notion client
+    notion = Client(auth=os.environ["NOTION_API_KEY"])
+    notion_page_id = os.environ["NOTION_PAGE_ID"]
      # Split the text into chunks of 2000 characters or less, ensuring no sentence is split
     max_chunk_size = 2000
     text_chunks = [text[i:i + max_chunk_size] for i in range(0, len(text), max_chunk_size)]
