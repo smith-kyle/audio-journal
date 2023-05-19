@@ -2,7 +2,6 @@ import os
 import keyboard
 import sys
 import datetime
-import sounddevice as sd
 import whisper
 from notion_client import Client
 import queue
@@ -44,6 +43,7 @@ def play_stop_sound():
 
 # Function to record audio
 def record_audio(filename):
+    import sounddevice as sd
     sample_rate = 44100
     channels = 1
     q = queue.Queue()
