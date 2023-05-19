@@ -14,6 +14,9 @@ import time
 import multiprocessing
 import shutil
 import re
+from os.path import join
+
+DIR = os.path.dirname(os.path.realpath(__file__))
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -22,10 +25,10 @@ load_dotenv()
 notion = Client(auth=os.environ["NOTION_API_KEY"])
 notion_page_id = os.environ["NOTION_PAGE_ID"]
 
-success_song = AudioSegment.from_wav("beeps/success.wav")
-error_song = AudioSegment.from_wav("beeps/error.wav")
-start_song = AudioSegment.from_wav("beeps/start.wav")
-stop_song = AudioSegment.from_wav("beeps/stop.wav")
+success_song = AudioSegment.from_wav(join(DIR, "beeps/success.wav"))
+error_song = AudioSegment.from_wav(join(DIR, "beeps/error.wav"))
+start_song = AudioSegment.from_wav(join(DIR, "beeps/start.wav"))
+stop_song = AudioSegment.from_wav(join(DIR, "beeps/stop.wav"))
 
 def play_success_sound():
     play(success_song)
@@ -144,17 +147,3 @@ def transcribing_process():
             print(e)
             print(f"Error while transcribing and uploading audio. Trying again in 5 seconds...")
 
-if __name__ == "__main__":
-    try:
-        record_process = multiprocessing.Process(target=recording_process)
-        transcribe_process = multiprocessing.Process(target=transcribing_process)
-
-        record_process.start()
-        transcribe_process.start()
-
-        record_process.join()
-        transcribe_process.join()
-    # Catch any kind of error and play error sound
-    except Exception as e:
-        play_error_sound()
-        print(e)
