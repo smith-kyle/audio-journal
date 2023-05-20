@@ -3,11 +3,11 @@
 # %% auto 0
 __all__ = ['start']
 
-# %% ../nbs/00_main.ipynb 3
+# %% ../nbs/00_main.ipynb 4
 from .old_main import *
 import multiprocessing
 
-# %% ../nbs/00_main.ipynb 4
+# %% ../nbs/00_main.ipynb 5
 def start() -> None:
     try:
         record_process = multiprocessing.Process(target=recording_process)
