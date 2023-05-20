@@ -3,7 +3,6 @@ import keyboard
 import sys
 import datetime
 import whisper
-from notion_client import Client
 import queue
 import soundfile as sf
 from pydub import AudioSegment
@@ -14,11 +13,9 @@ import multiprocessing
 import shutil
 import re
 from os.path import join
+from . import notion
 
 DIR = os.path.dirname(os.path.realpath(__file__))
-
-from dotenv import load_dotenv
-load_dotenv()
 
 success_song = AudioSegment.from_wav(join(DIR, "beeps/success.wav"))
 error_song = AudioSegment.from_wav(join(DIR, "beeps/error.wav"))
@@ -67,50 +64,6 @@ def transcribe_audio(filename):
     result = model.transcribe(filename)
     return result["text"]
 
-# Function to append transcription to Notion document
-def append_to_notion(text):
-    # Set up Notion client
-    notion = Client(auth=os.environ["NOTION_API_KEY"])
-    notion_page_id = os.environ["NOTION_PAGE_ID"]
-     # Split the text into chunks of 2000 characters or less, ensuring no sentence is split
-    max_chunk_size = 2000
-    text_chunks = [text[i:i + max_chunk_size] for i in range(0, len(text), max_chunk_size)]
-    print([len(c) for c in text_chunks])
-    # Define the block object for appending
-    current_date = datetime.date.today().strftime('%B %d, %Y')
-    children = [
-        {
-            "object": "block",
-            "type": "paragraph",
-            'paragraph': {
-                "rich_text": [
-                    {
-                        "type": "text",
-                        "text": {
-                            "content": f"{current_date}\n"
-                        },
-                        "annotations": {
-                            "bold": True
-                        }
-                    }
-                ]
-            } 
-        } 
-    ]
-    for chunk in text_chunks:
-        children[0]['paragraph']['rich_text'].append({
-                        "type": "text",
-                        "text": {
-                            "content": chunk
-                        }
-        })
-
-    # Append the block to the page
-    notion.blocks.children.append(
-        block_id=notion_page_id,
-        children=children
-    )
-
 def recording_process():
     os.makedirs("temp_recordings", exist_ok=True)
     os.makedirs("completed_recordings", exist_ok=True)
@@ -138,7 +91,7 @@ def transcribing_process():
                     print(f"Transcribing {audio_file_path}")
                     transcription = transcribe_audio(audio_file_path)
                     print("Transcription:", transcription)
-                    append_to_notion(transcription)
+                    notion.append_to_notion(transcription)
                     play_success_sound()
                     os.remove(audio_file_path)
                     print(f"Transcription uploaded to Notion and {audio_file_path} deleted.")

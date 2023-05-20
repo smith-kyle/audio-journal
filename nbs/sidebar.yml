@@ -2,4 +2,5 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 00_temp.ipynb
+      - 00_main.ipynb
+      - 01_notion.ipynb
