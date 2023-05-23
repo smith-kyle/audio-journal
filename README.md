@@ -12,6 +12,10 @@ After you’ve update the `~/.audio-journal/config` with your [page
 ID](https://github.com/ramnes/notion-sdk-py/discussions/31) and
 [integration key](https://www.notion.so/my-integrations)
 
+``` bash
+audio_journal_start
+```
+
 > Want to journal more? Hate writing by hand?
 
 ## How it works
@@ -33,11 +37,7 @@ While the benefits of hand written journaling are clear, forcing one to
 slow down, to organize one’s thoughts, I find the 5x slow down makes it
 a non-starter. So instead lets optimize for gross word count!
 
-    pip install -r requirements.txt
-    sudo ./run.sh
-
 ## Future work
 
-- Deploy to a raspberry pi
-- Interface with a push to talk microphone
-- Integrate with other document storage options e.g. Google docs
+- Offer a alternative storage options
+- Interface with a mic, always on, wait for wake word
