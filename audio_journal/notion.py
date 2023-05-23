@@ -7,16 +7,18 @@ __all__ = ['append_to_notion']
 from notion_client import Client
 import os
 import datetime
+from .config import fetch_env_var
 
 # %% ../nbs/01_notion.ipynb 3
 def append_to_notion(text):
-    "Function to append transcription to Notion document"
+    "Function to append transcription to Notion document which a heading of the current date."
 
     from dotenv import load_dotenv; load_dotenv()
 
     # Set up Notion client
-    notion = Client(auth=os.environ["NOTION_API_KEY"])
-    notion_page_id = os.environ["NOTION_PAGE_ID"]
+
+    notion = Client(auth=fetch_env_var("NOTION_API_KEY"))
+    notion_page_id = fetch_env_var("NOTION_PAGE_ID")
      # Split the text into chunks of 2000 characters or less, ensuring no sentence is split
     max_chunk_size = 2000
     text_chunks = [text[i:i + max_chunk_size] for i in range(0, len(text), max_chunk_size)]

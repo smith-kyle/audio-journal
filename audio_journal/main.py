@@ -3,21 +3,25 @@
 # %% auto 0
 __all__ = ['start']
 
-# %% ../nbs/00_main.ipynb 4
-from .old_main import *
+# %% ../nbs/00_main.ipynb 3
 import multiprocessing
+from .record import recording_process
+from .transcribe import transcribing_process
+from .sounds import play_error_sound
 
 # %% ../nbs/00_main.ipynb 5
 def start() -> None:
     try:
-        record_process = multiprocessing.Process(target=recording_process)
+        # Start the transcribing process in a separate process
         transcribe_process = multiprocessing.Process(target=transcribing_process)
-
-        record_process.start()
         transcribe_process.start()
 
-        record_process.join()
+        # Run the recording process in the main process
+        recording_process()
+
+        # Wait for the transcribing process to finish
         transcribe_process.join()
+
     # Catch any kind of error and play error sound
     except Exception as e:
         play_error_sound()
