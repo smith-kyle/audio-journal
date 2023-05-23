@@ -29,7 +29,6 @@ def record_audio(filename):
         with sf.SoundFile(filename, mode='x', samplerate=sample_rate,
                           channels=channels, subtype='PCM_24') as file:
             with sd.InputStream(samplerate=sample_rate, channels=channels, callback=audio_callback):
-                print("Waiting for keyboard input now...")
                 input()
                 sd.stop()
                 while not q.empty():
@@ -42,10 +41,10 @@ def recording_process():
     os.makedirs("temp_recordings", exist_ok=True)
     os.makedirs("completed_recordings", exist_ok=True)
     while True:
-        print("Press the space key to start recording...")
+        print("Press Enter to start recording...")
         input()
         play_start_sound()
-        print("Recording... Press the space key to stop recording.")
+        print("Recording... Press Enter to stop recording.")
         current_date_time = datetime.datetime.now().strftime("%B %d, %Y %H-%M-%S")
         temp_audio_filename = f"temp_recordings/audio_{current_date_time}.wav"
         completed_audio_filename = f"completed_recordings/audio_{current_date_time}.wav"
