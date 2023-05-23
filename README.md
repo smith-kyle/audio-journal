@@ -39,5 +39,5 @@ a non-starter. So instead lets optimize for gross word count!
 
 ## Future work
 
-- Offer a alternative storage options
+- Offer an alternative storage option
 - Interface with a mic, always on, wait for wake word
