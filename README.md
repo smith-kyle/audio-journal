@@ -16,15 +16,7 @@ ID](https://github.com/ramnes/notion-sdk-py/discussions/31) and
 audio_journal_start
 ```
 
-> Want to journal more? Hate writing by hand?
-
-## How it works
-
-1.  Hit space to record
-2.  Say your peace
-3.  Hit space again to stop
-
-Your audio will be trascribed on-device and uploaded directly to Notion.
+## Demo
 
 https://user-images.githubusercontent.com/5474861/236587909-a7b0578b-b742-4571-80a2-65e249c43fca.mp4
 
@@ -39,5 +31,5 @@ a non-starter. So instead lets optimize for gross word count!
 
 ## Future work
 
-- Offer an alternative storage option
+- Offer alternative storage options
 - Interface with a mic, always on, wait for wake word
