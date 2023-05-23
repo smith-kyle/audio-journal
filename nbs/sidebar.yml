@@ -4,3 +4,4 @@ website:
       - index.ipynb
       - 00_main.ipynb
       - 01_notion.ipynb
+      - 02_sounds.ipynb
