@@ -22,7 +22,7 @@ def generate_quote(journal_entry: str) -> str:
 
     # Make the API call
     response = openai.ChatCompletion.create(
-        model="gpt-4",  # use the correct model name for GPT-4
+        model="gpt-4-1106-preview",  # use the correct model name for GPT-4
         messages=messages
     )
 
