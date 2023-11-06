@@ -1,0 +1,93 @@
+[
+  {
+    "objectID": "04_transcribe.html",
+    "href": "04_transcribe.html",
+    "title": "audio-journal",
+    "section": "",
+    "text": "source\n\ntranscribing_process\n\n transcribing_process ()\n\n\nsource\n\n\ntranscribe_audio\n\n transcribe_audio (filename)"
+  },
+  {
+    "objectID": "01_notion.html",
+    "href": "01_notion.html",
+    "title": "audio-journal",
+    "section": "",
+    "text": "source\n\nappend_to_notion\n\n append_to_notion (text)\n\nFunction to append transcription to Notion document which a heading of the current date."
+  },
+  {
+    "objectID": "06_gpt.html",
+    "href": "06_gpt.html",
+    "title": "audio-journal",
+    "section": "",
+    "text": "source\n\ngenerate_quote\n\n generate_quote (journal_entry:str)\n\n\nquote = generate_quote(\"Today was a great day. I jumped in the friged waters of Ocean Beach, I pushed out some changes to this journaling app. I played games with friends and meditated.\")\nprint(quote)\n\n\"Life is either a daring adventure or nothing at all.\" - Helen Keller\n\nExcerpts:\n- jumped in the frigid waters of Ocean Beach\n- pushed out some changes to this journaling app\n- played games with friends\n- meditated"
+  },
+  {
+    "objectID": "02_sounds.html",
+    "href": "02_sounds.html",
+    "title": "audio-journal",
+    "section": "",
+    "text": "source\n\nplay_stop_sound\n\n play_stop_sound ()\n\n\nsource\n\n\nplay_start_sound\n\n play_start_sound ()\n\n\nsource\n\n\nplay_error_sound\n\n play_error_sound ()\n\n\nsource\n\n\nplay_success_sound\n\n play_success_sound ()\n\n\nsource\n\n\nget_current_dir\n\n get_current_dir ()"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": ":studio_microphone: Notion Audio Journal",
+    "section": "",
+    "text": "pip install audio-journal\nAfter you’ve update the ~/.audio-journal/config with your page ID and integration key\naudio_journal_start"
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": ":studio_microphone: Notion Audio Journal",
+    "section": "",
+    "text": "pip install audio-journal\nAfter you’ve update the ~/.audio-journal/config with your page ID and integration key\naudio_journal_start"
+  },
+  {
+    "objectID": "index.html#demo",
+    "href": "index.html#demo",
+    "title": ":studio_microphone: Notion Audio Journal",
+    "section": "Demo",
+    "text": "Demo\nhttps://user-images.githubusercontent.com/5474861/236587909-a7b0578b-b742-4571-80a2-65e249c43fca.mp4"
+  },
+  {
+    "objectID": "index.html#why",
+    "href": "index.html#why",
+    "title": ":studio_microphone: Notion Audio Journal",
+    "section": "Why?",
+    "text": "Why?\nI wish I journaled more often. The ability to look back through the years, reflect and remember events long past is invaluable.\nWhile the benefits of hand written journaling are clear, forcing one to slow down, to organize one’s thoughts, I find the 5x slow down makes it a non-starter. So instead lets optimize for gross word count!"
+  },
+  {
+    "objectID": "index.html#future-work",
+    "href": "index.html#future-work",
+    "title": ":studio_microphone: Notion Audio Journal",
+    "section": "Future work",
+    "text": "Future work\n\nOffer alternative storage options\nInterface with a mic, always on, wait for wake word"
+  },
+  {
+    "objectID": "03_record.html",
+    "href": "03_record.html",
+    "title": "audio-journal",
+    "section": "",
+    "text": "source\n\nrecord_audio\n\n record_audio (filename)\n\n\nsource\n\n\nrecording_process\n\n recording_process ()"
+  },
+  {
+    "objectID": "main.html",
+    "href": "main.html",
+    "title": "main",
+    "section": "",
+    "text": "This is the entry point for the application. It starts two processes 1. A recording process that will save input audio to a file 2. A transcribing process that will watch for new recordings, and transcribe and upload them if found.\n\nsource\n\nstart\n\n start ()"
+  },
+  {
+    "objectID": "05_config.html",
+    "href": "05_config.html",
+    "title": "audio-journal",
+    "section": "",
+    "text": "source\n\nfetch_env_var\n\n fetch_env_var (var_name)"
+  },
+  {
+    "objectID": "07_notifiy.html",
+    "href": "07_notifiy.html",
+    "title": "audio-journal",
+    "section": "",
+    "text": "source\n\nsend_email\n\n send_email (subject:str, body:str)\n\n\nsend_email(\"Test email\", \"No body\")\n\nEmail sent successfully."
+  }
+]
